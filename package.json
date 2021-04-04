@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.bundle.js",
+    "start": "nodemon ./app.js localhost 8080",
     "build": "webpack",
     "dev": "nodemon ./app.js localhost 8080"
   },

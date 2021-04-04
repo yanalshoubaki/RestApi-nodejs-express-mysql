@@ -10,11 +10,13 @@ exports.signup = (req, res) => {
   // Save User to Database
   User.create({
     username: req.body.username,
-    user_email: req.body.user_email,
     password: bcrypt.hashSync(req.body.password, 8),
   })
     .then((user) => {
-      res.send({ message: "User was registered successfully!" });
+      var token = jwt.sign({ id: user.uid }, config.secret, {
+        expiresIn: 86400, // 24 hours
+      });
+      res.status(200).send({ auth: true, token: token });
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });
@@ -46,15 +48,9 @@ exports.signin = (req, res) => {
         });
       }
 
-      var token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400, // 24 hours
-      });
-
-      var authorities = [];
       res.status(200).send({
-        user_id: user.id,
+        uid: user.uid,
         username: user.username,
-        user_email: user.email,
       });
     })
     .catch((err) => {

@@ -1,14 +1,11 @@
 module.exports = (sequelize, Sequelize) => {
-  const User = sequelize.define("tbl_users", {
-    id: {
+  const User = sequelize.define("users", {
+    uid: {
       type: Sequelize.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true,
     },
     username: {
-      type: Sequelize.STRING,
-    },
-    user_email: {
       type: Sequelize.STRING,
     },
     password: {
