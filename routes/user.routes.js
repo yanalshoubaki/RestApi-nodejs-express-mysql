@@ -10,5 +10,5 @@ module.exports = function (app) {
   });
 
   app.get("/api/user/all", controller.allUsers);
-  app.get("/api/user/:id", controller.findUser);
+  app.post("/api/user/:id", controller.findUser);
 };

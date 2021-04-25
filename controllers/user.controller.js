@@ -22,6 +22,18 @@ exports.allUsers = async (req, res) => {
 
 // Find a single User With User Id
 exports.findUser = async (req, res) => {
-  const user = await User.findByPk(req.params.id);
+  console.log(req);
+  const user = await User.findOne({
+    include: [
+      {
+        as: "post",
+        model: Post,
+        include: [{ model: Category, as: "category" }],
+      },
+    ],
+    where: {
+      ID: req.body.id,
+    },
+  });
   res.status(200).send(user);
 };
